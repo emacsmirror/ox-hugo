@@ -958,10 +958,10 @@ ORIG-FUN is the original function `org-babel-exp-code' that this
 function is designed to advice using `:around'.  ARGS are the
 arguments of the ORIG-FUN.
 
-This advice retains the `:hl_lines', `linenos' and
+This advice retains the `:hl_lines', `linenos', `syntax-style' and
 `:front_matter_extra' parameters, if added to any source block.
 This parameter is used in `org-hugo-src-block'."
-  (let* ((param-keys-to-be-retained '(:hl_lines :linenos :front_matter_extra))
+  (let* ((param-keys-to-be-retained '(:hl_lines :linenos :syntax-style :front_matter_extra))
          (info (car args))
          (parameters (nth 2 info))
          (ox-hugo-params-str (let ((str ""))
@@ -3503,6 +3503,7 @@ their Hugo site's config."
                          (if (numberp hl-lines-param)
                              (number-to-string hl-lines-param)
                            hl-lines-param)))
+             (syntax-style (cdr (assoc :syntax-style parameters)))
              (code-refs-and-anchor (org-hugo--get-coderef-anchor-prefix src-block))
              (code-refs (let ((code-refs1 (car code-refs-and-anchor)))
                           (when code-refs1
@@ -3591,6 +3592,11 @@ their Hugo site's config."
           (if (org-string-nw-p code-attr-str)
               (setq code-attr-str (format "%s, hl_lines=%s" code-attr-str hl-lines))
             (setq code-attr-str (format "hl_lines=%s" hl-lines))))
+
+        (when syntax-style
+          (if (org-string-nw-p code-attr-str)
+              (setq code-attr-str (format "%s, style=%s" code-attr-str syntax-style))
+            (setq code-attr-str (format "style=%s" syntax-style))))
 
         (when code-refs
           (let* ((anchor-prefix (cdr code-refs-and-anchor))

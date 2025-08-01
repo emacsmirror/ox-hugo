@@ -1386,6 +1386,22 @@ The Org source for the below is similar to the above, except that the
 =-n= switch is also added to enable the line numbers.
 
 #+include: "../test/site/content-org/all-posts.org::#source-blocks-with-highlighting-with-linenums-not-starting-from-1" :only-contents t
+**** Setting =style= for exported code blocks
+Instead of using the syntax highlighting theme specified in
+~markup.highlight.style~ (which defaults to =monokai=), the syntax style
+can be specified for an exported code block by passing the
+=:syntax-style= header argument.
+This is particularly useful when you would like to "override" the
+default style for a type of source block; for example, one could set
+#+begin_src org
+#+property: header-args:diff :syntax-style "paraiso-dark"
+#+end_src
+to use the =paraiso-dark= theme for ~diff~ code blocks without affecting
+the syntax highlighting of other types of code blocks.
+
+=:syntax-style= should a valid Chroma syntax highlighting style; a list
+of all styles supported by Hugo can be found at the [[https://gohugo.io/quick-reference/syntax-highlighting-styles/][syntax
+highlighting styles]] page on the Hugo docs.
 **** Hiding source block caption numbers
 The "Code Snippet <number>:" part of the source block captions can be
 hidden by adding this to the CSS:
