@@ -4672,7 +4672,10 @@ links."
 
                     ;; Change the link if it points to a valid
                     ;; destination outside the subtree.
-                    (unless (equal source-path destination-path)
+                    (unless (or  (equal source-path destination-path)
+                                 (and (string= type "id")
+                                      (org-id-find-id-file
+                                       (org-element-property :path el))))
                       (let ((link-desc (org-element-contents el)))
                         ;; (message "[ox-hugo pre process DBG] link desc: %s" link-desc)
 
