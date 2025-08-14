@@ -447,6 +447,12 @@
   site = "https://athulsuresh.com"
   org_dir = "content-org"
 
+[amunoz]
+  author = "Alan Munoz"
+  source = "https://github.com/afermg/afermg.github.io"
+  site = "https://afermg.github.io"
+  org_dir = "content-org"
+
 # [ValidTOMLKey] <-- The key cannot contain spaces or periods.
 #   author = ""
 #   source = ""
